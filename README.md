@@ -1,5 +1,4 @@
-# Laporan
-# UAS Blockchain & Cryptocurrency
+# Laporan UAS Blockchain & Cryptocurrency
 ```
 Name: Benjamin Jason Tantra
 NIM: 00000037711
@@ -38,3 +37,10 @@ uint256 vendorBalance = Side7Token.balanceOf(address(this));
 require(vendorBalance >= amountToBuy,  "Not enough tokens in vendor's address");
 ```
 amountToBuy adalah total jumlah yang ingin dibeli, vendorBalance adalah jumlah token ``Side7Token`` yang di miliki oleh vendor. Jika jumlah token yang ingin di beli lebih dari token yang ada di wallet Vendor, maka akan di munculkan error *"Not enough tokens in vendor's address."*
+```
+(bool sent)  = Side7Token.transfer(msg.sender, amountToBuy);
+require(sent,  "Failed to transfer token");
+emit BuyTokens(msg.sender,  msg.value, amountToBuy);
+return amountToBuy;
+```
+Lalu setelah di konfirmasi bahwa token vendor dan ETH pembeli juga cukup, maka token dari vendor akan di transfer ke pembeli dan akan di emit hasil dari transaksi. Jika ada error di tengah-tengah transaksi, maka akan muncul error *"Failed to transfer token."* dan transaksi akan di berhentikan jika token atau ETH gagal untuk di kirim.
