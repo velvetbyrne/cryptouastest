@@ -1,3 +1,77 @@
+/* Text */
+body {
+  background-color: #fdfdfd;
+}
+
+h1 {
+  text-align: center;
+  color: black;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: black;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+p {
+  color: black;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+img {
+  padding: 5px;
+}
+
+/* Classes */
+.center {
+  text-align: center;
+}
+
+.ButtonStyle {
+	background-color:#223ab1;
+	border-radius:5px;
+	border:1px solid #223ab1;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-size:16px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+}
+
+
+/* Table */
+
+table {
+  border: 2px solid #223ab1;
+  background-color: #223ab1;
+  height: 30px;
+  width: 100%;
+}
+
+.product {
+  background-color: #fdfdfd;
+}
+
+th {
+  color: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+tr {
+  color: black;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+td {
+  color: black;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .App {
   text-align: center;
 }
