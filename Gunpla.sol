@@ -12,10 +12,10 @@ contract Gunpla {
         uint256 id;
         string name;
         uint256 price; //Price in SD7
+        string imgPath;
         ItemStatus itemStatus;
         address seller;
         address buyer;
-        string imgPath;
     }
 
     enum ItemStatus {Available, Purchased, Unavailable}
