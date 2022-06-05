@@ -26,6 +26,14 @@ contract Gunpla {
     constructor() public {
         itemCounter = 0;
         createItem("HGFC Death Army", 15, "hgfc_deatharmy004.jpg");
+        createItem("HGCE Freedom Gundam", 27, "hgce_freedom007.jpg");
+        createItem("HGCE Lord Astray Omega", 54, "hgce_loadastray002.jpg");
+        createItem("HGUC V-Dash Gundam", 24, "hguc_vdash197.jpg");
+        createItem("HGFC Kampfer", 26, "hguc_kampfer002.jpg");
+        createItem("HGUC Blue Destiny Unit-2", 27, "hguc_blue2006.jpg");
+        createItem("HGUC Byralant", 33, "hguc_byarlant_003.jpg");
+        createItem("HGUC The O", 33, "hguc_theo003.jpg");
+        createItem("HGBD Try Age Gundam Magnum", 15, "hgbd_tryage004.jpg");
     }
 
     uint256 itemCounter;
