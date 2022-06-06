@@ -120,7 +120,7 @@ function getMyItem()  public  view  returns(uint256[]  memory item){
 	return userItems[msg.sender];
 }
 ```
-o
+Function ``getMyItem`` membantu untuk memanggil semua barang yang dimiliki oleh pengguna.
 ```
 Function getItemStrById(uint256 _id) public view returns(uint256 id, string memory name, uint256 price,string memory status,address seller,address buyer,string memory imgPath ){
         Item memory i = getItemById(_id);
@@ -138,7 +138,7 @@ Function getItemStrById(uint256 _id) public view returns(uint256 id, string memo
         return (i.id,i.name,i.price,statusTemp,i.seller,i.buyer,i.imgPath);
     }
 ```
-o
+Function ``getItemByStrId`` secara otomatis mengganti status barang. ``Available`` jika barang masih di jual, ``Purchased`` jika barang sudah dibeli oleh pengguna, ``Unavailable`` jika produk sudah di beli oleh orang lain atau stock sedang habis dan ``unnamed`` digunakan sebagai error case.
 ```
 function buyItem (uint256 _itemId) public payable returns(bool success){
         Item memory i = getItemById(_itemId);
@@ -149,7 +149,7 @@ function buyItem (uint256 _itemId) public payable returns(bool success){
             return false;
         }
 ```
-o
+Function ``buyItem`` digunakan saat produk ingin dibeli oleh pengguna. Jika ``ItemStatus`` tidak ``Available``, maka akan di emit error bahwa item tidak dapat beli.
 ```
 				if(msg.value <= i.price){
             emit ErrorNotEnoughMoney(msg.sender,_itemId);
@@ -157,7 +157,7 @@ o
             return false;
         }
 ```
-o
+Jika Token milik pengguna tidak cukup untuk membeli produk yang ingin dibeli, maka pengguna akan mendapatkan error yang menunjukan bahwa mereka tidak mempunyai token yang cukup untuk membeli barang.
 ```
 		i.buyer = msg.sender;
         i.itemStatus = Gunpla.ItemStatus.Purchased;
@@ -167,7 +167,7 @@ o
         return true;
     }
 ```
-s
+Jika semua kondisi terpenuhi untuk membeli produk, maka item tersebut akan di transfer ke pengguna.
 ## Website
 
 ```
