@@ -85,9 +85,9 @@ function App() {
     <h2 class="center">Our Products</h2>
     <table class="center product">
       <tr>
-          <td><img src={require('.//hgfc_deatharmy004.jpg')} width="300" ></img></td>
-          <td><img src={require('.//hgce_freedom007.jpg')} width="300" ></img></td>
-          <td><img src={require('.//hgce_loadastray002.jpg')} width="300" ></img></td>
+          <td><img src={require('.//hgfc_deatharmy004.jpg')} width="300"></img></td>
+          <td><img src={require('.//hgce_freedom007.jpg')} width="300"></img></td>
+          <td><img src={require('.//hgce_loadastray002.jpg')} width="300"></img></td>
       </tr>
       <tr>
         <td>HGFC Death Army</td>
@@ -105,9 +105,9 @@ function App() {
         <td><button class="ButtonStyle">Purchase</button></td>
       </tr>
       <tr>
-          <td><img src={require('.//hguc_vdash197.jpg')} width="300" ></img></td>
-          <td><img src={require('.//hguc_kampfer002.jpg')} width="300" ></img></td>
-          <td><img src={require('.//hguc_blue2006.jpg')} width="300" ></img></td>
+          <td><img src={require('.//hguc_vdash197.jpg')} width="300"></img></td>
+          <td><img src={require('.//hguc_kampfer002.jpg')} width="300"></img></td>
+          <td><img src={require('.//hguc_blue2006.jpg')} width="300"></img></td>
       </tr>
       <tr>
         <td>HGUC V-Dash Gundam</td>
@@ -125,9 +125,9 @@ function App() {
         <td><button class="ButtonStyle">Purchase</button></td>
       </tr>
       <tr>
-          <td><img src={require('.//hguc_byarlant_003.jpg')} width="300" ></img></td>
-          <td><img src={require('.//hguc_theo003.jpg')} width="300" ></img></td>
-          <td><img src={require('.//hgbd_tryage004.jpg')} width="300" ></img></td>
+          <td><img src={require('.//hguc_byarlant_003.jpg')} width="300"></img></td>
+          <td><img src={require('.//hguc_theo003.jpg')} width="300"></img></td>
+          <td><img src={require('.//hgbd_tryage004.jpg')} width="300"></img></td>
       </tr>
       <tr>
         <td>HGUC Byralant</td>

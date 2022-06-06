@@ -44,7 +44,7 @@ return amountToBuy;
 ```
 Lalu setelah di konfirmasi bahwa token vendor dan ETH pembeli juga cukup, maka token dari vendor akan di transfer ke pembeli dan akan di emit hasil dari transaksi. Jika ada error di tengah-tengah transaksi, maka akan muncul error *"Failed to transfer token."* dan transaksi akan di berhentikan jika token atau ETH gagal untuk di kirim.
 
-## Smart Contract
+### Smart Contract
 Smart Contract membantu dalam menangani pembelian, pendaftaran barang dan transfer kepemilikan barang di blockchain. Karena Smart Contract ini untuk toko online, transfer kepemilikan hanya antara vendor dan pengguna. Pengguna tidak dapat membeli barang dari pengguna lain.
 ```
 event CreateItem(address  indexed creator,  uint256 itemId);
@@ -86,7 +86,7 @@ function getItemId()  private  returns(uint)  {  return  ++itemCounter;  }
 ```
 ``itemCounter`` berbentuk uint256. Selain itu terdapat function getItemId untuk mendapatkan id dari barang yang di dalam database yang dimasukan menggunakan fungsi ``createItem``.
 ```
-Function createItem (string memory _name,uint256 _price,string memory _imgPath) public returns(bool success) {
+function createItem (string memory _name,uint256 _price,string memory _imgPath) public returns(bool success) {
         uint256 itemId = getItemId();
         Item memory item = items[itemId];
         item.id = itemId;
@@ -103,4 +103,155 @@ Function createItem (string memory _name,uint256 _price,string memory _imgPath) 
     }
   ```
   Fungsi ``addItem`` digunakan untuk menambahkan barang ke dalam toko. Item yang di masukan menggunakan parameter-parameter yang sudah di setting menggunakan constructor sebelum nya. Di ``item.itemStatus``, status item akan secara otomatis di setting sebagai ``Available``.
- 
+```
+function getAllItemList() public view returns(uint256[] memory _items){
+        return itemList;
+    }
+```
+Function ``getAllItemList`` dapat dipanggil untuk mengambil kembali semua barang yang ada di dalam ``itemList``.
+```
+function getItemById(uint256 _id) private view returns(Item memory item){
+        return items[_id];
+    }
+```
+Function ``getItemById`` dapat dipanggil untuk mencari barang dari id barang tersebut.
+```
+function getMyItem()  public  view  returns(uint256[]  memory item){
+	return userItems[msg.sender];
+}
+```
+o
+```
+Function getItemStrById(uint256 _id) public view returns(uint256 id, string memory name, uint256 price,string memory status,address seller,address buyer,string memory imgPath ){
+        Item memory i = getItemById(_id);
+
+        string memory statusTemp;
+        if(i.itemStatus == ItemStatus.Available){
+            statusTemp = "Available";
+        }else if(i.itemStatus == ItemStatus.Purchased){
+            statusTemp = "Purchased";
+        }else if(i.itemStatus == ItemStatus.Purchased){
+            statusTemp = "Unavailable";
+        }else{
+            statusTemp = "unnamed";
+        }
+        return (i.id,i.name,i.price,statusTemp,i.seller,i.buyer,i.imgPath);
+    }
+```
+o
+```
+function buyItem (uint256 _itemId) public payable returns(bool success){
+        Item memory i = getItemById(_itemId);
+
+        if(i.itemStatus != ItemStatus.Available){
+            emit ErrorItemNotAvailable(msg.sender,_itemId);
+            msg.sender.transfer(msg.value);
+            return false;
+        }
+```
+o
+```
+				if(msg.value <= i.price){
+            emit ErrorNotEnoughMoney(msg.sender,_itemId);
+            msg.sender.transfer(msg.value);
+            return false;
+        }
+```
+o
+```
+		i.buyer = msg.sender;
+        i.itemStatus = Gunpla.ItemStatus.Purchased;
+        items[_itemId] = i;
+        userItems[msg.sender].push(i.id);
+        emit BuyItem(msg.sender,i.id);
+        return true;
+    }
+```
+s
+## Website
+
+```
+import {
+  useConnect, 
+  useAccount, 
+  InjectedConnector, 
+  chain, 
+  useBalance,
+  useContractRead,
+  useContractWrite
+} from "wagmi";
+import { useState } from "react";
+import { hrABI, contractAddress } from './ABI/contractABI';
+```
+
+```
+const metamaskConnector = new InjectedConnector ({
+  chains: [chain.kovan],
+})
+```
+
+```
+function App() {
+  const [connectResult, connect] = useConnect();
+  const [accountResult, disconnect] = useAccount();
+```
+
+```
+const [etherBalance] = useBalance({
+    addressOrName: accountResult.data?.address
+  })
+```
+
+```
+const [sd7Balance] = useBalance({
+    addressOrName: accountResult.data?.address,
+    token: "0xa5ef99fe776cf743530cc96eb0a9aeb22a46accb10fb796302554e423cfe41e3"
+  })
+```
+
+```
+const [message, setMessage] = useState('')
+
+  const [messageResult, getMessage] = useContractRead({
+    addressOrName: contractAddress,
+    contractInterface: hrABI
+  }, 'getMessage')
+```
+
+```
+const [error, setError] = useState ("");
+  const connectMetamask = async() => {
+    try{
+      const result = await connect(metamaskConnector)
+      if(result.data.chain.unsupported){
+        throw new Error("Network not supported!")
+      }
+    } catch (err) {
+      setError(err.message)
+    }
+  }
+```
+
+```
+{connectResult.data.connected ?
+      <div>
+        <table>
+          <tr>
+            <th>Logo</th>
+            <th>ETH: {etherBalance.data?.formatted} {etherBalance.data?.symbol}</th>
+            <th>SD7: {sd7Balance.data?.formatted} {sd7Balance.data?.symbol}</th>
+            <th><button class="ButtonStyle" onClick={disconnect}>Disconnect</button></th>
+          </tr>
+        </table>
+        <br/>
+      </div>:
+      <table>
+      <tr>
+        <th>Logo</th>
+        <th>ETH: Not Connected</th>
+        <th>SD7: Not Connected</th>
+        <th><button class="ButtonStyle" onClick={connectMetamask}>Connect Wallet</button></th>
+      </tr>
+    </table>
+      }
+```

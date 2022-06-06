@@ -63,7 +63,7 @@ contract Gunpla {
         return items[_id];
     }
 
-        function getMyItem() public view returns(uint256[] memory item){
+    function getMyItem() public view returns(uint256[] memory item){
         return userItems[msg.sender];
     }
 
