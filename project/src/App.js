@@ -30,22 +30,6 @@ function App() {
     token: "0xa5ef99fe776cf743530cc96eb0a9aeb22a46accb10fb796302554e423cfe41e3"
   })
 
-  const [message, setMessage] = useState('')
-
-  const [messageResult, getMessage] = useContractRead({
-    addressOrName: contractAddress,
-    contractInterface: hrABI
-  }, 'getMessage')
-
-  const [changeMessageResult, changeMessage] = useContractWrite({
-      addressOrName: contractAddress,
-      contractInterface: hrABI,
-    }, 'setMessage', {
-      args: [
-        message
-      ] 
-    })
-
   const [error, setError] = useState ("");
   const connectMetamask = async() => {
     try{

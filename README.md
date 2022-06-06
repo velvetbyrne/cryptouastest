@@ -169,7 +169,7 @@ Jika Token milik pengguna tidak cukup untuk membeli produk yang ingin dibeli, ma
 ```
 Jika semua kondisi terpenuhi untuk membeli produk, maka item tersebut akan di transfer ke pengguna.
 ## Website
-
+Website ini untuk tampilan utama toko termasuk menampilkan barang-barang serta memungkinkan pengguna untuk menghubungkan dompet metamask mereka ke situs web untuk membeli barang yang mereka inginkan.
 ```
 import {
   useConnect, 
@@ -180,44 +180,33 @@ import {
   useContractRead,
   useContractWrite
 } from "wagmi";
-import { useState } from "react";
-import { hrABI, contractAddress } from './ABI/contractABI';
 ```
-
+Pada bagian pertama, kami mengimpor fungsi dari ``wagmi ethers`` untuk menjalankan fungsi-fungsi yang diperlukan untuk menangani transaksi yang dilakukan dengan ethereum.
 ```
 const metamaskConnector = new InjectedConnector ({
   chains: [chain.kovan],
 })
 ```
-
+``metamaskConnector`` digunakan untuk membantu terhubung dengan jaringan tertentu, dalam hal ini ``metamaskConnector`` hanya akan terhubung ke dompet di Kovan Test Network.
 ```
 function App() {
   const [connectResult, connect] = useConnect();
   const [accountResult, disconnect] = useAccount();
 ```
-
+``connectResult`` dan ``useAccount`` ini digunakkan untuk menghubungkan dan men-disconnect wallet dari website.
 ```
 const [etherBalance] = useBalance({
     addressOrName: accountResult.data?.address
   })
 ```
-
+``etherBalance`` ini mengambil balance Ethereum yang ada di wallet Metamask pengguna dengan melihat address Metamask pengguna. Dengan ini, website dapat menampilkan jumlah Ethereum yang di miliki oleh pengguna.
 ```
 const [sd7Balance] = useBalance({
     addressOrName: accountResult.data?.address,
     token: "0xa5ef99fe776cf743530cc96eb0a9aeb22a46accb10fb796302554e423cfe41e3"
   })
 ```
-
-```
-const [message, setMessage] = useState('')
-
-  const [messageResult, getMessage] = useContractRead({
-    addressOrName: contractAddress,
-    contractInterface: hrABI
-  }, 'getMessage')
-```
-
+``sd7Balance`` ini memiliki fungsi yang sama dengan fungsi ``etherBalance`` namun menunjukan jumlah token SD7 yang di miliki oleh pengguna. ``token:`` tersebut mengarahkan ke address yang dimiliki oleh contract SD7 tersebut.
 ```
 const [error, setError] = useState ("");
   const connectMetamask = async() => {
@@ -231,7 +220,7 @@ const [error, setError] = useState ("");
     }
   }
 ```
-
+Fungsi ``error`` ini akan menunjukan teks *"Network not supported!"* jika wallet yang terhubung tidak menggunakan Kovan Test Network.
 ```
 {connectResult.data.connected ?
       <div>
@@ -255,3 +244,4 @@ const [error, setError] = useState ("");
     </table>
       }
 ```
+Blok kode ini berisi bagian dari fungsionalitas untuk menghubungkan dompet Metamask dengan situs web. Ketika situs web tidak terhubung ke dompet, maka akan muncul *"Not Connected "* di ETH dan SD7. Namun jika dompet Metamask telah terhubung, maka bagian atas akan menunjukkan saldo untuk ETH dan token SD7 pada header.
