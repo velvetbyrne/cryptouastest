@@ -23,5 +23,4 @@ contract Side7Token is ERC20Burnable{
         emit BuyTokens(msg.sender, msg.value, amountToBuy);
         return amountToBuy;
     }
-    /*test*/
 }

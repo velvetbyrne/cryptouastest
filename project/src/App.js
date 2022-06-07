@@ -41,6 +41,7 @@ function App() {
       setError(err.message)
     }
   }
+  
   return (
     <div>
       <h1>Side 7 Store</h1>

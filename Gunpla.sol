@@ -3,6 +3,11 @@ pragma solidity ^0.8.0;
 
 contract Gunpla {
 
+    enum ItemStatus {Available, Purchased, Unavailable}
+    mapping (address => uint256[]) private userItems;
+    mapping(uint256 => Item) items;
+    uint256[] itemList;
+
     event CreateItem(address indexed creator, uint256 itemId);
     event ErrorItemNotAvailable(address indexed buyer, uint256 itemId);
     event ErrorNotEnoughMoney(address indexed buyer, uint256 itemId);
@@ -17,11 +22,6 @@ contract Gunpla {
         address seller;
         address buyer;
     }
-
-    enum ItemStatus {Available, Purchased, Unavailable}
-    mapping (address => uint256[]) private userItems;
-    mapping(uint256 => Item) items;
-    uint256[] itemList;
 
     constructor() public {
         itemCounter = 0;
